@@ -6,6 +6,7 @@ Installation
 Method 1: Clone the Repository
 Navigate to your ComfyUI custom_nodes directory.
 Run:
+
    git clone https://github.com/Austat/ComfyUI-DownsampleFPS
 
 Restart ComfyUI.
