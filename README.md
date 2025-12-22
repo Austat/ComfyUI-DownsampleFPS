@@ -4,7 +4,9 @@ A node for ComfyUI to downsample framerate ie. from 48 to 24.
 Methods available:
 
 "Frame dropping"
+
 "Frame blending (CPU)"
+
 "Optical flow (CPU)"
 
 Installation
