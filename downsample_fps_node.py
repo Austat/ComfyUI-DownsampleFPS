@@ -4,7 +4,22 @@ import torch
 import cv2
 import numpy as np
 import os
+import warnings
 from concurrent.futures import ThreadPoolExecutor
+from rich.progress import Progress, BarColumn, TextColumn, TimeRemainingColumn, TimeElapsedColumn
+
+warnings.filterwarnings("ignore", category=UserWarning, module="torchvision")
+
+
+def create_blue_progress(task_name, total):
+    return Progress(
+        TextColumn(f"[bold cyan]{task_name}[/bold cyan]"),
+        BarColumn(bar_width=None, style="bright_blue", complete_style="cyan"),
+        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+        TimeElapsedColumn(),
+        TimeRemainingColumn(),
+        expand=True,
+    ), total
 
 
 class DownsampleFPSNode:
@@ -65,6 +80,14 @@ class DownsampleFPSNode:
         return cv2.remap(frame1, map_x, map_y, cv2.INTER_LINEAR)
 
     # ---------------------------------------------------------
+    # CPU FRAME BLENDING (MULTITHREADED)
+    # ---------------------------------------------------------
+    @staticmethod
+    def _cpu_blend_pair(args):
+        frame1, frame2 = args
+        return cv2.addWeighted(frame1, 0.5, frame2, 0.5, 0)
+
+    # ---------------------------------------------------------
     # MAIN DOWNSAMPLE FUNCTION
     # ---------------------------------------------------------
     def downsample(self, frames, input_fps, target_fps, method, cpu_threads):
@@ -82,29 +105,32 @@ class DownsampleFPSNode:
               f"input_fps={input_fps}, target_fps={target_fps}, "
               f"in_frames={len(np_frames)}, out_frames={len(indices)}")
 
+        # Determine thread count
+        if cpu_threads == "auto":
+            threads = os.cpu_count()
+        else:
+            threads = int(cpu_threads)
+
         # --------------------------------
         # METHOD: Frame Dropping (CPU)
         # --------------------------------
         if method == "Frame dropping":
-            selected = [np_frames[i] for i in indices if i < len(np_frames)]
+            progress, total = create_blue_progress("Dropping", len(indices))
+            selected = []
+
+            with progress:
+                task = progress.add_task("drop", total=total)
+                for i in indices:
+                    if i < len(np_frames):
+                        selected.append(np_frames[i])
+                    progress.update(task, advance=1)
 
         # --------------------------------
-        # METHOD: Frame Blending (CPU)
+        # METHOD: Frame Blending (CPU, MULTITHREAD)
         # --------------------------------
         elif method == "Frame blending (CPU)":
-            selected = []
-            for idx in indices:
-                if idx + 1 < len(np_frames):
-                    blended = cv2.addWeighted(np_frames[idx], 0.5,
-                                              np_frames[idx + 1], 0.5, 0)
-                    selected.append(blended)
-                else:
-                    selected.append(np_frames[idx])
+            print(f"[Frame Blending CPU] Using {threads} threads")
 
-        # --------------------------------
-        # METHOD: Optical Flow (CPU, MULTITHREAD)
-        # --------------------------------
-        elif method == "Optical flow (CPU)":
             tasks = []
             for idx in indices:
                 if idx + 1 < len(np_frames):
@@ -112,17 +138,38 @@ class DownsampleFPSNode:
                 else:
                     tasks.append((np_frames[idx], np_frames[idx]))
 
-            # Determine thread count
-            if cpu_threads == "auto":
-                threads = os.cpu_count()
-            else:
-                threads = int(cpu_threads)
+            progress, total = create_blue_progress("Blending", len(tasks))
+            selected = []
 
+            with progress:
+                task = progress.add_task("blend", total=total)
+                with ThreadPoolExecutor(max_workers=threads) as executor:
+                    for result in executor.map(self._cpu_blend_pair, tasks):
+                        selected.append(result)
+                        progress.update(task, advance=1)
+
+        # --------------------------------
+        # METHOD: Optical Flow (CPU, MULTITHREAD)
+        # --------------------------------
+        elif method == "Optical flow (CPU)":
             print(f"[Optical Flow CPU] Using {threads} threads")
 
-            # ThreadPoolExecutor works safely inside ComfyUI
-            with ThreadPoolExecutor(max_workers=threads) as executor:
-                selected = list(executor.map(self._cpu_optical_flow_pair, tasks))
+            tasks = []
+            for idx in indices:
+                if idx + 1 < len(np_frames):
+                    tasks.append((np_frames[idx], np_frames[idx + 1]))
+                else:
+                    tasks.append((np_frames[idx], np_frames[idx]))
+
+            progress, total = create_blue_progress("Optical Flow", len(tasks))
+            selected = []
+
+            with progress:
+                task = progress.add_task("flow", total=total)
+                with ThreadPoolExecutor(max_workers=threads) as executor:
+                    for result in executor.map(self._cpu_optical_flow_pair, tasks):
+                        selected.append(result)
+                        progress.update(task, advance=1)
 
         # Convert back to torch tensor
         selected = np.stack(selected).astype(np.float32) / 255.0
