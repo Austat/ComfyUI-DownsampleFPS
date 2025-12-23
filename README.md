@@ -1,10 +1,10 @@
 # ComfyUI-DownsampleFPS
-A node for ComfyUI to downsample framerate ie. from 48 to 24.
+## A node for ComfyUI to downsample framerate ie. from 48 to 24.
 
 <img width="294" height="203" alt="image" src="https://github.com/user-attachments/assets/b0467347-4307-48f8-86d2-3ee55300d781" />
 
 
-Methods available:
+## Methods available:
 
 "Frame dropping"
 
@@ -14,7 +14,7 @@ Methods available:
 
 "Motion compensated (CPU)"
 
-Installation
+## Installation
 
 Method 1: Clone the Repository
 Navigate to your ComfyUI custom_nodes directory.
@@ -27,7 +27,7 @@ Restart ComfyUI.
 Here’s the mental map you can keep - Each method is fast and really isn't resource hog. Computational time is usually in seconds (100 seconds lenght video takes five seconds on 32 cores):
 
 <details>
-  <summary>Details about each method</summary>
+  <summary>## Details about each method</summary>
 
 ### 1.	Frame dropping
    
