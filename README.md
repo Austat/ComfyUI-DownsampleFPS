@@ -26,6 +26,9 @@ Restart ComfyUI.
 
 Here’s the mental map you can keep - Each method is fast and really isn't resource hog. Computational time is usually in seconds (100 seconds lenght video takes five seconds on 32 cores):
 
+<details>
+  <summary>Click to here. </summary>
+
 ### 1.	Frame dropping
    
    o	Just picks certain original frames.
@@ -33,7 +36,7 @@ Here’s the mental map you can keep - Each method is fast and really isn't reso
    o	No blending, no flow, nothing.
    
    o	Fastest. Sharpest individual frames. Choppy motion.
-
+'''
 
 ### 2.	Frame blending
    
