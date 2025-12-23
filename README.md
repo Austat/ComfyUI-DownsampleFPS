@@ -12,6 +12,8 @@ Methods available:
 
 "Optical flow (CPU)"
 
+"Motion compensated (CPU)"
+
 Installation
 
 Method 1: Clone the Repository
