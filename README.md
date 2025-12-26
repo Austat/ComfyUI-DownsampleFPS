@@ -27,7 +27,7 @@ Restart ComfyUI.
 Here’s the mental map you can keep - Each method is fast and really isn't resource hog. Computational time is usually in seconds (100 seconds lenght video takes five seconds on 32 cores):
 
 <details>
-  <summary>Details about each method</summary>
+  <summary>## Details about each method</summary>
 
 ### 1.	Frame dropping
    
