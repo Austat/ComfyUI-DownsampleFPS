@@ -1152,7 +1152,7 @@ def optical_flow(
         frame_b = frames[pair_index + 1]
 
         # Never morph two unrelated scenes.
-        if cuts:
+        if cuts[pair_index]:
             return (
                 frame_a.copy()
                 if interpolation_t < 0.5
