@@ -1,4 +1,4 @@
 torch
-opencv-python
+opencv-contrib-python
 numpy
 tqdm
