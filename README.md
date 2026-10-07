@@ -31,38 +31,38 @@ Here’s the mental map you can keep - Each method is fast and really isn't reso
 
 ### 1.	Frame dropping
    
-   o	Just picks certain original frames.
+   	Just picks certain original frames.
    
-   o	No blending, no flow, nothing.
+   	No blending, no flow, nothing.
    
-   o	Fastest. Sharpest individual frames. Choppy motion.
-'''
+   	Fastest. Sharpest individual frames. Choppy motion.
+
 
 ### 2.	Frame blending
    
-   o	Averages neighboring frames.
+   	Averages neighboring frames.
    
-   o	No motion understanding.
+   	No motion understanding.
    
-   o	Removes harsh stutter at the price of ghosting.
+   	Removes harsh stutter at the price of ghosting.
 
 
 ### 3.	Optical flow
    
-   o	Computes motion.
+   	Computes motion.
    
-   o	Warps frame1 halfway to frame2.
+   	Warps frame1 halfway to frame2.
    
-   o	Can generate intermediate-looking frames but prone to warpy artifacts when flow fails.
+   	Can generate intermediate-looking frames but prone to warpy artifacts when flow fails.
 
 
 ### 4.	Motion compensated
    
-   o	Computes motion.
+   	Computes motion.
    
-   o	Warps both frame1 forward and frame2 backward.
+   	Warps both frame1 forward and frame2 backward.
    
-   o	Blends warped frames for a more symmetric and robust mid-frame.
+   	Blends warped frames for a more symmetric and robust mid-frame.
 
 
 ### By visual result
@@ -80,17 +80,17 @@ Here’s the mental map you can keep - Each method is fast and really isn't reso
 
 •	Dropping:
 
-o	Fails by being visually choppy. No weird artifacts, just temporal roughness.
+	Fails by being visually choppy. No weird artifacts, just temporal roughness.
 
 •	Blending:
 
-o	Fails via ghosting — double exposures and soft blur.
+	Fails via ghosting — double exposures and soft blur.
 
 •	Optical flow:
 
-o	Fails via weird warping/stretching, especially around edges or fast motion.
+	Fails via weird warping/stretching, especially around edges or fast motion.
 
 •	Motion compensated:
 
-o	Fails similarly to optical flow, but blending two warped views sometimes hides the worst of it.
+	Fails similarly to optical flow, but blending two warped views sometimes hides the worst of it.
 
