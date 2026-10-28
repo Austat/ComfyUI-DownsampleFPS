@@ -3,7 +3,7 @@
 *"Hath it ever vexed thy soul when two moving pictures march to a different beat—the one shuffling at sixteen paces a second, whilst its companion strideth at four-and-twenty? 
 Perchance thou didst seek to force them into harmony through tedious interpolation, bringing both to a swift eight-and-forty paces. 
 Yet what sorrow it is to waste such precious toil and time! Know then, that this wondrously handy node was fashioned to deliver thee from such vexation. 
-It gently downsampleth the swifter vision to meet the other at four-and-twenty paces, weaving them together without a single hiccup, and thus the day is most gloriously saved." -The Ancient Chronicles of Sorrow, Book IV, Chapter VII (The Restoration of Lost Visions) Written by the Scribe Austat, The High Priest of the Melancholic Matrix*
+It gently downsampleth the swifter vision to meet the other at four-and-twenty paces, weaving them together without a single hiccup, and thus the day is most gloriously saved." <br> -The Ancient Chronicles of Sorrow, Book IV, Chapter VII (The Restoration of Lost Visions) Written by the Scribe Austat, The High Priest of the Melancholic Matrix*
 
 
 ## A node for ComfyUI to downsample framerate ie. from 48 to 24.
