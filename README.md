@@ -1,10 +1,5 @@
 # ComfyUI-DownsampleFPS
 
-
-| First Header  | Second Header |
-| ------------- | ------------- |
-| <img width="294" height="203" alt="image" src="https://github.com/user-attachments/assets/b0467347-4307-48f8-86d2-3ee55300d781" />  | *"Hath it ever vexed thy soul when two moving pictures march to a different beat—the one shuffling at sixteen paces a second, whilst its companion strideth at four-and-twenty? Perchance thou didst seek to force them into harmony through tedious interpolation, bringing both to a swift eight-and-forty paces. Yet what sorrow it is to waste such precious toil and time! Know then, that this wondrously handy node was fashioned to deliver thee from such vexation. It gently downsampleth the swifter vision to meet the other at four-and-twenty paces, weaving them together without a single hiccup, and thus the day is most gloriously saved."<h6>-The Ancient Chronicles of Sorrow, Book IV, Chapter VII (An Elegy for Discrepant Paces) Written by the Scribe Austat, The High Priest of the Melancholic Matrix*  |
-
 *"Hath it ever vexed thy soul when two moving pictures march to a different beat—the one shuffling at sixteen paces a second, whilst its companion strideth at four-and-twenty? 
 Perchance thou didst seek to force them into harmony through tedious interpolation, bringing both to a swift eight-and-forty paces. 
 Yet what sorrow it is to waste such precious toil and time! Know then, that this wondrously handy node was fashioned to deliver thee from such vexation. 
