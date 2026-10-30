@@ -1,5 +1,11 @@
 # ComfyUI-DownsampleFPS
-
+<br>
+| Left-Aligned  | Center Aligned  | Right Aligned |
+| :------------ |:---------------:| -----:|
+| col 3 is      | some wordy text | $1600 |
+| col 2 is      | centered        |   $12 |
+| zebra stripes | are neat        |    $1 |
+<br>
 *"Hath it ever vexed thy soul when two moving pictures march to a different beat—the one shuffling at sixteen paces a second, whilst its companion strideth at four-and-twenty? 
 Perchance thou didst seek to force them into harmony through tedious interpolation, bringing both to a swift eight-and-forty paces. 
 Yet what sorrow it is to waste such precious toil and time! Know then, that this wondrously handy node was fashioned to deliver thee from such vexation. 
